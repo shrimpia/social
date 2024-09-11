@@ -1,0 +1,29 @@
+services:
+  app:
+    build:
+      context: .
+    depends_on:
+      - postgres
+    ports:
+      - 3000:3000
+      - 5173:5173
+    environment:
+      - PG_HOST=postgres
+      - REDIS_HOST=redis
+    volumes:
+      - .:/app:cached
+      - node-modules:/app/node_modules
+  postgres:
+    image: postgres:16.2
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-store:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: portal
+
+volumes:
+  db-store:
+  node-modules:

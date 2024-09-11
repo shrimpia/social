@@ -1,0 +1,78 @@
+@use 'sass:math';
+@use 'sass:color';
+
+@import './reset.css';
+@import './util.scss';
+
+$lightenLevel: (
+    50: 45%,
+    100: 40%,
+    200: 30%,
+    300: 20%,
+    400: 10%,
+);
+$darkenLevel: (
+    600: 10%,
+    700: 20%,
+    800: 30%,
+    900: 40%,
+);
+
+@mixin colorScheme($name, $color) {
+    --#{$name}: #{$color};
+
+    @each $level, $ratio in $lightenLevel {
+        $value: color.adjust($color, $whiteness: $ratio);
+        --#{$name}-#{$level}: #{$value};
+    }
+    --#{$name}-500: #{$color};
+    @each $level, $ratio in $darkenLevel {
+        $value: color.adjust($color, $blackness: $ratio);
+        --#{$name}-#{$level}: #{$value};
+    }
+}
+
+:root {
+    $primary: #d34b4f;
+    --primary-text: #fff;
+    
+    @include colorScheme('primary', $primary);
+    
+    
+    /* --- Global --- */
+    --body-bg: #f2dcd9;
+    --body-text: #200c0c;
+
+    --article-bg: #fff2f2;
+    --article-text: var(--body-text);
+
+    --card-bg: #f6e9e7;
+    --card-text: var(--body-text);
+    --card-border: 1px solid #e5dbd9;
+    --card-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+
+    --ui-bg: #fff;
+    --ui-hover-bg: #f9f9f9;
+    --ui-active-bg: #f0f0f0;
+    --ui-text: var(--body-text);
+    --ui-radius: 6px;
+    --ui-border-color: #e9e9e9;
+    --ui-shadow-color: #bebebe;
+    --ui-focus-color: var(--primary);
+
+    --ui-bg-primary: var(--primary);
+    
+    --text-muted: rgba(0, 0, 0, 0.5);
+
+    /* --- Navigation Bar --- */
+    --nav-width: 300px;
+    --nav-indicator-color: var(--primary);
+    --nav-hover-bg: rgba(0, 0, 0, 0.05);
+
+    --topbar-bg: #f6e9e799;
+    --topbar-height: 50px;
+
+    background-color: var(--body-bg);
+    color: var(--body-text);
+    font-family: "Koruri", sans-serif;
+}

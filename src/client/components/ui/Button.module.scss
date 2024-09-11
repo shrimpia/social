@@ -1,0 +1,33 @@
+.btn {
+    border: 1px solid var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    border-bottom-color: var(--ui-shadow-color);
+    background: var(--ui-bg);
+    color: var(--ui-text);
+    padding: 8px 16px;
+    cursor: pointer;
+
+    &:hover {
+        background: var(--ui-hover-bg);
+    }
+
+    &:active {
+        background: var(--ui-active-bg);
+        border-bottom-color: var(--ui-border-color);
+        translate: 0 1px;
+    }
+}
+
+.btnPrimary {
+    @extend .btn;
+    background: var(--primary);
+    color: var(--primary-text);
+
+    &:hover {
+        background: var(--primary-600);
+    }
+
+    &:active {
+        background: var(--primary-700);
+    }
+}

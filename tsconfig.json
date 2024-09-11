@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"moduleDetection": "force",
+		"module": "Preserve",
+        "target": "es2017",
+        "jsx": "react",
+		"resolveJsonModule": true,
+		"allowJs": false,
+		"esModuleInterop": true,
+		"isolatedModules": true,
+        "baseUrl": "./",
+        "paths": {
+            "@/*": ["src/*"]
+        },
+	},
+}

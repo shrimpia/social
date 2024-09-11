@@ -1,0 +1,20 @@
+{
+    "name": "shrimpia-prefab",
+    "dockerComposeFile": "../compose.yml",
+    "service": "app",
+    "workspaceFolder": "/app",
+    "overrideCommand": true,
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "Prisma.prisma",
+                "ipatalas.vscode-postfix-ts",
+                "ckolkman.vscode-postgres",
+                "rangav.vscode-thunder-client",
+                "ms-azuretools.vscode-docker",
+                "biomejs.biome"
+            ]
+        }
+    }
+}

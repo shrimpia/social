@@ -1,0 +1,48 @@
+/**
+  * 全体で利用するユーティリティ スタイルを定義します。
+  * 複雑なスタイルはむやみに定義せず、コンポーネント化することを検討してください。
+  */
+
+/** 水平スタック */
+._hstack {
+    display: flex;
+    gap: 16px;
+}
+
+/** 垂直スタック */
+._vstack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/** カード */
+._card {
+    background: var(--card-bg);
+    color: var(--card-text);
+    padding: 32px;
+    border-radius: 32px;
+    border: var(--card-border);
+    box-shadow: var(--card-shadow);
+}
+
+/** 控えめなテキスト */
+._text-muted {
+    color: var(--text-muted);
+}
+
+/** ページヘッダ */
+._page-header {
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+/** 水平方向に設置されたアイコン */
+._icon-horizontal {
+    margin-right: 8px;
+}
+
+/** 垂直方向に設置されたアイコン */
+._icon-vertical {
+    margin-bottom: 8px;
+}

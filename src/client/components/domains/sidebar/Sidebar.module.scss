@@ -1,0 +1,67 @@
+.sidebar {
+    position: fixed;
+    inset: 0;
+    width: var(--nav-width);
+    overflow: auto;
+    padding: 32px;
+}
+
+.header {
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0 0 32px 0;
+}
+
+.logo {
+    display: inline;
+    height: 32px;
+    vertical-align: -0.6em;
+    margin-right: 8px;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 4px;
+}
+
+.commands {
+    @extend .navigation;
+    margin-top: 16px;
+}
+
+.navItem {
+    padding: 8px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+
+    &::before {
+        content: '';
+        display: inline-block;
+        margin-right: 8px;
+        width: 4px;
+        height: 20px;
+        border-radius: 2px;
+    }
+
+    > i {
+        margin-right: 8px;
+    }
+
+    &:hover {
+        background: var(--nav-hover-bg);
+    }
+}
+
+.navItemActive {
+    background: var(--nav-hover-bg);
+
+    &::before {
+        background: var(--nav-indicator-color);
+    }
+}

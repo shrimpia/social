@@ -1,0 +1,22 @@
+.logo {
+    height: 32px;
+}
+
+.topBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: var(--topbar-height);
+    padding: 0 16px;
+    margin-bottom: 32px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    background-color: var(--topbar-bg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+}

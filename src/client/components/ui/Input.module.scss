@@ -1,0 +1,17 @@
+.input {
+    border: 1px solid var(--ui-border-color);
+    border-bottom-width: 2px;
+    border-radius: var(--ui-radius);
+    background: var(--ui-bg);
+    color: var(--ui-text);
+    padding: 8px 16px;
+
+    &:focus {
+        outline: none;
+        border-bottom-color: var(--ui-focus-color);
+    }
+}
+
+.inputPrimary {
+    @extend .input;
+}
