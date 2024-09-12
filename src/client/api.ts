@@ -1,10 +1,20 @@
 import type { AppRouter } from "@/api/router";
-import { createTRPCClient, httpBatchLink } from "@trpc/client";
+import { createTRPCClient, createTRPCReact, httpBatchLink } from "@trpc/react-query";
+import { sessionState } from "./states/session";
+import superjson from "superjson";
 
-export const api = createTRPCClient<AppRouter>({
+export const trpc = createTRPCClient<AppRouter>({
     links: [
         httpBatchLink({
             url: '/api',
+            headers() {
+                if (!sessionState.token) return {};
+
+                return {
+                    'X-Api-Token': sessionState.token,
+                };
+            },
+            transformer: superjson,
         }),
     ]
 });

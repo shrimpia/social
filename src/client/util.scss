@@ -20,8 +20,8 @@
 ._card {
     background: var(--card-bg);
     color: var(--card-text);
-    padding: 32px;
-    border-radius: 32px;
+    padding: 16px;
+    border-radius: 16px;
     border: var(--card-border);
     box-shadow: var(--card-shadow);
 }
@@ -29,6 +29,11 @@
 /** 控えめなテキスト */
 ._text-muted {
     color: var(--text-muted);
+}
+
+/** primaryカラーのテキスト */
+._text-primary {
+    color: var(--primary);
 }
 
 /** ページヘッダ */

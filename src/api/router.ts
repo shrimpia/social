@@ -6,13 +6,15 @@ import { loginRequestSchema } from "./request-schemas/login";
 import { userWithTokenSchema } from "./models/user-with-token";
 import bcrypt from 'bcryptjs';
 import { getOrCreateUserToken } from "@/services/get-or-create-user-token";
-import { z } from "zod";
 import { userSchema } from "./models/user";
 import type { createApiContext } from "./context";
 import { createNoteRequestSchema } from "./request-schemas/create-note";
 import { deleteNoteRequestSchema } from "./request-schemas/delete-note";
+import superjson from "superjson";
 
-export const t = initTRPC.context<typeof createApiContext>().create();
+export const t = initTRPC.context<typeof createApiContext>().create({
+    transformer: superjson
+});
 
 /**
  * トークンを必要としないプロシージャ
@@ -27,7 +29,7 @@ const userProcedure = publicProcedure
         if (!opts.ctx.user) {
             throw new TRPCError({
                 code: "UNAUTHORIZED",
-                message: "Unauthorized",
+                message: "This API requires API token. Set X-Api-Token header!",
             });
         }
         return opts.next({
@@ -103,6 +105,7 @@ export const appRouter = t.router({
                 skip: input.cursor ? 1 : 0,
                 take: input.limit,
                 orderBy: { id: 'desc' },
+                include: { author: true },
             });
             return noteSchema.array().parse(dbNotes);
         }),
@@ -112,12 +115,14 @@ export const appRouter = t.router({
         .output(noteSchema)
         .mutation(async ({input, ctx}) => {
             const userId = ctx.user.id;
-            return await $prisma.note.create({
+            const note = await $prisma.note.create({
                 data: {
                     text: input.text,
                     authorId: userId,
                 },
+                include: { author: true },
             });
+            return note;
         }),
 
     deleteNote: userProcedure

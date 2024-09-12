@@ -31,3 +31,19 @@
         background: var(--primary-700);
     }
 }
+
+.btnFlat {
+    @extend .btn;
+    background: transparent;
+    padding: 8px;
+    border: none;
+    color: var(--ui-text);
+
+    &:hover {
+        background: var(--ui-flat-hover-bg);
+    }
+
+    &:active {
+        background: var(--ui-flat-active-bg);
+    }
+}

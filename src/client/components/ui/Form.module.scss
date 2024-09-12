@@ -1,0 +1,48 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+}
+
+.formItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.formLabel {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.submitButton {
+    background-color: var(--primary);
+    border: 1px solid var(--ui-border-color);
+    border-radius: var(--ui-radius);
+    border-bottom-color: var(--ui-shadow-color);
+    color: var(--primary-text);
+    padding: 1rem 4rem;
+    margin: auto;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--primary-600);
+    }
+    &:active {
+        background-color: var(--primary-700);
+        translate: 0 1px;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+        &:hover {
+            background-color: var(--primary);
+        }
+        &:active {
+            background-color: var(--primary);
+            translate: 0 0;
+        }
+    }
+}

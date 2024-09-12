@@ -13,8 +13,8 @@ export const getOrCreateUserToken = async (userId: string) => {
         },
     });
     // トークンが存在し、期限切れでなければそのまま返す
-    if (oldToken.expiresAt > new Date()) {
-        return oldToken;
+    if (oldToken && oldToken.expiresAt > new Date()) {
+        return oldToken.token;
     }
 
     // 古いトークンを一度全消去する

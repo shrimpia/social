@@ -1,0 +1,1 @@
+export const TITLE = "シュリンピア帝国（Re: 仮）";

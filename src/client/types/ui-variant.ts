@@ -1,1 +1,1 @@
-export type UIVariant = 'primary';
+export type UIVariant = 'primary' | 'flat';

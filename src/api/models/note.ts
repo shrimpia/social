@@ -6,4 +6,7 @@ export const noteSchema = z.object({
     text: z.string(),
     author: userSchema,
     authorId: z.string(),
+    createdAt: z.date(),
 });
+
+export type Note = z.infer<typeof noteSchema>;

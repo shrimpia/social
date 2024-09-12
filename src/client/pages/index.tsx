@@ -1,14 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 
 import styles from './index.module.scss';
+import { useSnapshot } from "valtio";
+import { sessionState as state } from "../states/session";
+import { LoginForm } from "../components/domains/home/LoginForm";
+import { PostForm } from "../components/domains/home/PostForm";
 import { Note } from "../components/domains/note/Note";
-import { api } from "../api";
+import type { Note as NoteType } from "../../api/models/note";
+import { trpc } from "../api";
+import { Timeline } from "../components/domains/home/Timeline";
 
 export default (() => {
+    const sessionState = useSnapshot(state);
 
     return (
-        <div className={styles.timeline}>
-            <Note />
+        <div className={styles.container}>
+            {sessionState.token ? <PostForm /> : <LoginForm />}
+            <Timeline source="local" />
         </div>
     );
 }) as React.FC;

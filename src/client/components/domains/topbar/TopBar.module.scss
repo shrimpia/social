@@ -1,4 +1,7 @@
 .logo {
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: bottom;
     height: 32px;
 }
 
@@ -19,4 +22,20 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8px);
     z-index: 100;
+}
+
+.topLink {
+    background: transparent;
+    padding: 8px 16px;
+    border-radius: var(--ui-radius);
+    color: var(--body-text);
+    text-decoration: none;
+
+    &:hover {
+        background-color: var(--ui-flat-hover-bg);
+    }
+
+    &:active {
+        background-color: var(--ui-flat-active-bg);
+    }
 }

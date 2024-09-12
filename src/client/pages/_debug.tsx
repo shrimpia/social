@@ -7,7 +7,6 @@ export default (() => {
     return (
         <div>
             <h1 className="_page-header">Debug</h1>
-            <p>要素の検証用ページ</p>
             <h2>ボタン</h2>
             <div className="_hstack">
                 <Button>デフォルト</Button>
