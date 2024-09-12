@@ -15,6 +15,7 @@ import { observable } from "@trpc/server/observable";
 import { Event } from "./streaming/events";
 import { localTimelineEventBus } from "./streaming/bus";
 import { updateProfileRequestSchema } from "./request-schemas/update-profile";
+import { renoteRequestSchema } from "./request-schemas/renote";
 
 export const t = initTRPC.context<typeof createApiContext>().create({
     transformer: superjson
@@ -123,7 +124,11 @@ export const appRouter = t.router({
                 skip: input.cursor ? 1 : 0,
                 take: input.limit,
                 orderBy: { id: 'desc' },
-                include: { author: true },
+                include: {
+                    author: true,
+                    inReplyTo: { include: { author: true } },
+                    renote: { include: { author: true } },
+                },
             });
             return noteSchema.array().parse(dbNotes);
         }),
@@ -138,7 +143,41 @@ export const appRouter = t.router({
                     text: input.text,
                     authorId: userId,
                 },
-                include: { author: true },
+                include: {
+                    author: true,
+                    inReplyTo: { include: { author: true } },
+                    renote: { include: { author: true } },
+                },
+            });
+            localTimelineEventBus.publish({
+                type: 'noteCreated',
+                note,
+            });
+            return note;
+        }),
+    
+    renote: userProcedure
+        .input(renoteRequestSchema)
+        .output(noteSchema)
+        .mutation(async ({input, ctx}) => {
+            const userId = ctx.user.id;
+            const renote = await $prisma.note.findUnique({ where : { id: input.noteId }, select: { id: true } });
+            if (!renote) {
+                throw new TRPCError({
+                    code: "NOT_FOUND",
+                    message: "Note not found",
+                });
+            }
+            const note = await $prisma.note.create({
+                data: {
+                    authorId: userId,
+                    renoteId: input.noteId,
+                },
+                include: {
+                    author: true,
+                    inReplyTo: { include: { author: true } },
+                    renote: { include: { author: true } },
+                },
             });
             localTimelineEventBus.publish({
                 type: 'noteCreated',

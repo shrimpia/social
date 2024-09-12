@@ -37,13 +37,12 @@ export default (() => {
                     <article className="_card">
                         <h1>プロフィール</h1>
                         <Form>
-                            <FormItem label="ユーザー名">
+                            <FormItem label="名前">
                                 <Input type="text" value={draftUser.name ?? ""} onChange={(e) => setDraftUser({ name: e.target.value })} />
                             </FormItem>
                             <FormItem label="色">
                                 <div className="_hstack">
                                     <Input type="color" value={draftUser.personalColor ?? ""} onChange={(e) => setDraftUser({ personalColor: e.target.value })} />
-                                    {draftUser.personalColor ?? "#000000"}
                                 </div>
                             </FormItem>
                             <div>

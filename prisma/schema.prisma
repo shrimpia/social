@@ -32,9 +32,17 @@ model Note {
   id String @id @default(cuid())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @map("updated_at")
-  text String
+  text String?
   author User @relation(fields: [authorId], references: [id])
   authorId String @map("author_id")
+  inReplyToId String? @map("in_reply_to_id")
+  renoteId String? @map("renote_id")
+
+  inReplyTo Note? @relation("replies", fields: [inReplyToId], references: [id])
+  renote Note? @relation("renotes", fields: [renoteId], references: [id])
+
+  replies Note[] @relation("replies")
+  renotes Note[] @relation("renotes")
 
   @@map("notes")
 }
