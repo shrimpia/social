@@ -9,10 +9,37 @@
     padding-right: 0;
 }
 
+.sidebarActive {
+    @extend .sidebar;
+}
+
 @include breakpoint.mobile {
-    .sidebar {
+    .backdrop, .backdropActive {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 100;
+        pointer-events: none;
+        transition: opacity 0.3s;
+        opacity: 0;
+    }
+
+    .backdropActive {
+        display: block;
+        pointer-events: auto;
+        opacity: 1;
+    }
+
+    .sidebar, .sidebarActive {
         background: var(--body-bg);
         left: calc(-1 * var(--nav-width));
+        transition: left 0.3s;
+        z-index: 200;
+        box-shadow: var(--card-shadow);
+    }
+
+    .sidebarActive {
+        left: 0;
     }
 }
 
