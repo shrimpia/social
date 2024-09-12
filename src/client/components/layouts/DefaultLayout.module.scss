@@ -1,14 +1,28 @@
-.main {
-    margin-top: var(--topbar-height);
-}
+@use "../../breakpoint";
 
 .inner {
     max-width: 1000px;
-    padding: 48px 16px;
+    padding: 48px 32px;
 }
 
 .footer {
     margin-top: 32px;
     font-size: 12px;
     color: var(--text-muted);
+}
+
+@include breakpoint.mobile {
+    .main {
+        margin-top: var(--topbar-height);
+    }
+
+    .inner {
+        padding: 48px 12px;
+    }
+}
+
+@include breakpoint.desktop {
+    .inner {
+        margin-left: var(--nav-width);
+    }
 }

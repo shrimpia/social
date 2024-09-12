@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import styles from './PostForm.module.scss';
+import commonStyles from './FormCommon.module.scss';
 import { Button } from '../../ui/Button';
-import { Textarea } from '../../ui/Textarea';
 import { TITLE } from '@/client/const';
 import { createNoteRequestSchema } from '@/api/request-schemas/create-note';
 import { trpc } from '@/client/api';
@@ -38,7 +38,7 @@ export const PostForm: React.FC = () => {
     }, [createNote, text]);
 
     return (
-        <div className={`_card _vstack ${styles.container}`}>
+        <div className={`_card _vstack ${commonStyles.container}`}>
             <div className={styles.topCommands}>
                 <div className={styles.placeholder} />
                 <div className={styles.spacer} />            

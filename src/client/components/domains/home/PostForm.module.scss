@@ -1,8 +1,3 @@
-.container {
-    position: sticky;
-    top: calc(var(--topbar-height) + 48px);
-}
-
 .topCommands {
     display: flex;
     align-items: center;
@@ -36,6 +31,5 @@
 .remain {
     color: var(--primary);
     font-weight: bold;
-    text-align: right;
     font-size: 0.8rem;
 }

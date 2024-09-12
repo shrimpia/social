@@ -8,10 +8,8 @@ import { TITLE } from "@/client/const";
 export const TopBar: React.FC = () => {
     return (
         <header className={styles.topBar}>
-            <Link to="/" className={styles.topLink}>
-                <img src={shrimpiaLogo} className={styles.logo} alt="" />
-                {TITLE}
-            </Link>
+            <img src={shrimpiaLogo} className={styles.logo} alt="" />
+            {TITLE}
         </header>
     );
 };

@@ -1,0 +1,13 @@
+$breakpointMobile: 800px;
+
+@mixin mobile {
+    @media (max-width: #{$breakpointMobile}) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: #{$breakpointMobile + 1}) {
+        @content;
+    }
+}

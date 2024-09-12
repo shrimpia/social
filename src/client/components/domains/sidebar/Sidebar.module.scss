@@ -1,15 +1,27 @@
+@use "../../../breakpoint";
+
 .sidebar {
     position: fixed;
     inset: 0;
     width: var(--nav-width);
     overflow: auto;
     padding: 32px;
+    padding-right: 0;
+}
+
+@include breakpoint.mobile {
+    .sidebar {
+        background: var(--body-bg);
+        left: calc(-1 * var(--nav-width));
+    }
 }
 
 .header {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
     margin: 0 0 32px 0;
+    white-space: nowrap;
+    font-feature-settings: palt;
 }
 
 .logo {
@@ -64,4 +76,10 @@
     &::before {
         background: var(--nav-indicator-color);
     }
+}
+
+.footer {
+    margin-top: 48px;
+    font-size: 12px;
+    color: var(--text-muted);
 }

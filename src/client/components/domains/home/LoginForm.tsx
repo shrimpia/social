@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 
 import styles from './LoginForm.module.scss';
+import commonStyles from './FormCommon.module.scss';
 import { Form, FormItem, SubmitButton } from "../../ui/Form";
 import { Input } from "../../ui/Input";
 import { trpc } from "@/client/api";
@@ -32,7 +33,7 @@ export const LoginForm: React.FC = () => {
     const disabled = !username || !password || isSubmitting;
 
     return (
-        <div className={styles.loginForm}>
+        <div className={commonStyles.container}>
             <div className="_card">
                 <p className={styles.description}>
                     シュリンピア帝国アカウントの認証情報を入力してください。

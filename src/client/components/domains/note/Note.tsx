@@ -33,7 +33,9 @@ export const Note: React.FC<NoteProp> = (p) => {
                         {dayjs(p.note.createdAt).fromNow()}
                     </div>
                 </header> 
-                <MfmView>{p.note.text}</MfmView>
+                <main>
+                    <MfmView>{p.note.text}</MfmView>
+                </main>
             </div>
         </div>
     );

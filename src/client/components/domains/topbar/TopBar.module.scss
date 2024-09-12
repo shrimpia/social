@@ -1,3 +1,5 @@
+@use "../../../breakpoint";
+
 .logo {
     display: inline-block;
     margin-right: 8px;
@@ -19,9 +21,15 @@
     font-size: 0.9rem;
     font-weight: bold;
     background-color: var(--topbar-bg);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 100;
+}
+
+@include breakpoint.desktop {
+    .topBar {
+        display: none;
+    }
 }
 
 .topLink {
