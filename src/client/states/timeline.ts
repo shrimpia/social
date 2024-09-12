@@ -1,6 +1,6 @@
 import { proxy } from "valtio";
 import { trpc } from "../api";
-import { Note } from "@/api/models/note";
+import type { Note } from "@/api/models/note";
 
 export type TimelineSource = 'local';
 

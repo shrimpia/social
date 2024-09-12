@@ -79,26 +79,28 @@ export const Note: React.FC<NoteProp> = (p) => {
                     <main>
                         {appearNote.text && <MfmView>{appearNote.text}</MfmView>}
                     </main>
-                    <div className={styles.commands}>
-                        {p.note.renote && p.note.authorId === session.userCache?.id ? (
-                            <Button variant="flat" onClick={undoRenote}>
-                                <i className="ti ti-repeat-off _text-primary" />
-                            </Button>
-                        ) : (
-                            <Button variant="flat" onClick={renote}>
-                                <i className="ti ti-repeat" />
-                            </Button>
-                        )}
-                        {canDelete ? (
-                            <Button variant="flat" onClick={deleteNote}>
-                                <i className="ti ti-trash _text-primary" />
-                            </Button>
-                        ) : (
-                            <Button variant="flat" disabled>
-                                <i className="ti ti-trash-off _text-muted" />
-                            </Button>
-                        )}
-                    </div>
+                    {session.userCache && (
+                        <div className={styles.commands}>
+                            {p.note.renote && p.note.authorId === session.userCache?.id ? (
+                                <Button variant="flat" onClick={undoRenote}>
+                                    <i className="ti ti-repeat-off _text-primary" />
+                                </Button>
+                            ) : (
+                                <Button variant="flat" onClick={renote}>
+                                    <i className="ti ti-repeat" />
+                                </Button>
+                            )}
+                            {canDelete ? (
+                                <Button variant="flat" onClick={deleteNote}>
+                                    <i className="ti ti-trash _text-primary" />
+                                </Button>
+                            ) : (
+                                <Button variant="flat" disabled>
+                                    <i className="ti ti-trash-off _text-muted" />
+                                </Button>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

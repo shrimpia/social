@@ -7,11 +7,9 @@ export default (() => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     
-    const signup = trpc.createAccountForTesting.mutate;
-
     const submit = useCallback(async () => {
         try {
-            await signup({
+            await trpc.createAccountForTesting.mutate({
                 username,
                 password,
             });
@@ -21,7 +19,7 @@ export default (() => {
             }
             console.error(e);
         }
-    }, [username, password, signup]);
+    }, [username, password]);
 
     return (
         <div>

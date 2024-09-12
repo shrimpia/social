@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { Form, FormItem, SubmitButton } from "../components/ui/Form";
 import { Button } from "../components/ui/Button";
 import { sessionState } from "../states/session";
-import { User } from "@/api/models/user";
+import type { User } from "@/api/models/user";
 import { useSnapshot } from "valtio";
 import { Input } from "../components/ui/Input";
 import { trpc } from "../api";
