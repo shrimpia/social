@@ -4,8 +4,11 @@ import ejs from 'ejs';
 import Fastify from 'fastify';
 import { appRouter, type AppRouter } from './api/router';
 import { createApiContext } from './api/context';
+import ws from '@fastify/websocket';
 
 const app = Fastify();
+
+app.register(ws);
 
 app.register(FastifyView, {
   engine: { ejs },
@@ -15,6 +18,12 @@ app.register(FastifyView, {
 // APIエンドポイント
 app.register(fastifyTRPCPlugin, {
   prefix: '/api',
+  useWSS: true,
+  keepAlive: {
+    enabled: true,
+    pingMs: 30000,
+    pongWaitWs: 5000,
+  },
   trpcOptions: {
     createContext: createApiContext,
     router: appRouter,
@@ -41,5 +50,5 @@ app.listen({ host: '0.0.0.0', port: 3000 }, (err) => {
     return;
   }
 
-  console.log(`Server is ready: http://${info.address}:${info.port}`);
+  console.log(`Server is ready: http://${info?.address}:${info?.port}`);
 });

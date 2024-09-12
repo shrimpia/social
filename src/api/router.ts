@@ -11,6 +11,9 @@ import type { createApiContext } from "./context";
 import { createNoteRequestSchema } from "./request-schemas/create-note";
 import { deleteNoteRequestSchema } from "./request-schemas/delete-note";
 import superjson from "superjson";
+import { observable } from "@trpc/server/observable";
+import { Event } from "./streaming/events";
+import { localTimelineEventBus } from "./streaming/bus";
 
 export const t = initTRPC.context<typeof createApiContext>().create({
     transformer: superjson
@@ -122,6 +125,10 @@ export const appRouter = t.router({
                 },
                 include: { author: true },
             });
+            localTimelineEventBus.publish({
+                type: 'noteCreated',
+                note,
+            });
             return note;
         }),
 
@@ -146,7 +153,18 @@ export const appRouter = t.router({
             await $prisma.note.delete({
                 where: { id: input.noteId },
             });
+            localTimelineEventBus.publish({
+                type: 'noteDeleted',
+                noteId: input.noteId,
+            });
         }),
+
+        subscribeLocalTimeline: publicProcedure
+            .subscription(() => {
+                return observable<Event>(observer => {
+                    return localTimelineEventBus.subscribe(data => observer.next(data));
+                });
+            }),
 });
 
 export type AppRouter = typeof appRouter;

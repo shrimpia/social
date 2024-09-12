@@ -35,3 +35,21 @@ export const fetchTimeline = async () => {
 };
 
 fetchTimeline();
+
+trpc.subscribeLocalTimeline.subscribe(undefined, {
+    onData(value) {
+        switch (value.type) {
+            case 'noteCreated': {
+                timelineState.notes.unshift(value.note);
+                break;
+            }
+            case 'noteDeleted': {
+                const index = timelineState.notes.findIndex((note) => note.id === value.noteId);
+                if (index !== -1) {
+                    timelineState.notes.splice(index, 1);
+                }
+                break;
+            }
+        }
+    },
+});
