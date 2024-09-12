@@ -5,6 +5,7 @@ import Fastify from 'fastify';
 import { appRouter, type AppRouter } from './api/router';
 import { createApiContext } from './api/context';
 import ws from '@fastify/websocket';
+import { TITLE } from './client/const';
 
 const app = Fastify();
 
@@ -35,7 +36,7 @@ app.register(fastifyTRPCPlugin, {
 
 // フロントエンド。基本的に全エンドポイントに対して同じHTMLを返す
 app.get('/*', async (request, reply) => {
-  return reply.viewAsync('index.ejs', { title: 'Shrimpia Portal' });
+  return reply.viewAsync('index.ejs', { title: TITLE });
 });
 
 app.listen({ host: '0.0.0.0', port: 3000 }, (err) => {

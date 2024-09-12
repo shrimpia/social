@@ -13,7 +13,7 @@ export type NoteProp = {
 
 export const Note: React.FC<NoteProp> = (p) => {
     const avatarFgColor = p.note.author.personalColor ?? 'var(--card-text)';
-    const avatarBgColor = `color-mix(in lch, ${avatarFgColor}, 80% white)`;
+    const avatarBgColor = `color-mix(in srgb, ${avatarFgColor}, 80% white)`;
     return (
         <div className={styles.card}>
             <div>

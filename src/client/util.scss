@@ -24,6 +24,12 @@
     border-radius: 16px;
     border: var(--card-border);
     box-shadow: var(--card-shadow);
+
+    h1 {
+        margin-bottom: 0.5rem;
+        font-weight: normal;
+        font-size: 1.4rem;
+    }
 }
 
 /** 控えめなテキスト */

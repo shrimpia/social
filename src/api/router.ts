@@ -14,6 +14,7 @@ import superjson from "superjson";
 import { observable } from "@trpc/server/observable";
 import { Event } from "./streaming/events";
 import { localTimelineEventBus } from "./streaming/bus";
+import { updateProfileRequestSchema } from "./request-schemas/update-profile";
 
 export const t = initTRPC.context<typeof createApiContext>().create({
     transformer: superjson
@@ -97,6 +98,20 @@ export const appRouter = t.router({
         .output(userSchema)
         .query(async ({ctx}) => {
             return ctx.user;
+        }),
+    
+    updateProfile: userProcedure
+        .input(updateProfileRequestSchema)
+        .output(userSchema)
+        .mutation(async ({input, ctx}) => {
+            const user = await $prisma.user.update({
+                where: { id: ctx.user.id },
+                data: {
+                    name: input.name,
+                    personalColor: input.personalColor,
+                },
+            });
+            return userSchema.parse(user);
         }),
 
     fetchLocalTimeline: publicProcedure
