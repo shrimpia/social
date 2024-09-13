@@ -21,11 +21,18 @@ model User {
   name String?
   passwordHash String @map("password_hash")
   personalColor String? @map("personal_color")
+  role Role @default(User)
 
   notes Note[]
   tokens Token[]
 
   @@map("users")
+}
+
+enum Role {
+  User
+  Admin
+  Moderator
 }
 
 model Note {
