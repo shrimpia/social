@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://media.shrimpia.network/mk-shrimpia/files/403404af-d86e-43ec-a219-b640ae75f62d.png">
     <link rel="stylesheet" href="https://koruri.chillout.chat/koruri.css" />
-    <% for( const src of styles ) { %>
-        <link rel="stylesheet" href="<%= src %>" />
-    <% } %>
+    <% if (process.env.NODE_ENV === 'production') { %>
+        <% for( const src of styles ) { %>
+            <link rel="stylesheet" href="<%= src %>" />
+        <% } %>
 
-    <% for( const src of preloadedModules ) { %>
-        <link rel="modulepreload" href="<%= src %>" />
+        <% for( const src of preloadedModules ) { %>
+            <link rel="modulepreload" href="<%= src %>" />
+        <% } %>
     <% } %>
     <title><%= title %></title>
 </head>

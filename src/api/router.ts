@@ -12,7 +12,6 @@ import { createNoteRequestSchema } from "./request-schemas/create-note";
 import { deleteNoteRequestSchema } from "./request-schemas/delete-note";
 import superjson from "superjson";
 import { observable } from "@trpc/server/observable";
-import { Event } from "./streaming/events";
 import { localTimelineEventBus } from "./streaming/bus";
 import { updateProfileRequestSchema } from "./request-schemas/update-profile";
 import { renoteRequestSchema } from "./request-schemas/renote";
@@ -63,8 +62,9 @@ export const appRouter = t.router({
             const user = await $prisma.user.findUnique({
                 where: { username: input.username },
             });
-
+                
             if (!user || !await bcrypt.compare(input.password, user.passwordHash)) {
+                console.error(`User "${input.username}" try to login, but ${user ? "password is incorrect" : "user not found"}`);
                 throw new TRPCError({
                     code: "UNAUTHORIZED",
                     message: "Invalid username or password",
