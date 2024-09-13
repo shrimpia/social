@@ -29,6 +29,7 @@
     "bcryptjs": "^2.4.3",
     "client": "link:@types/react-dom/client",
     "dayjs": "^1.11.13",
+    "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "fastify": "^4.24.3",
     "mfm-js": "^0.24.0",

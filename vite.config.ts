@@ -2,6 +2,9 @@ import react from '@vitejs/plugin-react';
 import pages from 'vite-plugin-pages';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default defineConfig({
   plugins: [
@@ -15,7 +18,7 @@ export default defineConfig({
   ],
   server: {
     host: '0.0.0.0',
-    origin: 'http://localhost:5173',
+    origin: process.env.FRONTEND_URL,
   },
   build: {
     manifest: true,

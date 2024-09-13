@@ -56,24 +56,6 @@ const adminProcedure = userProcedure
     });
 
 export const appRouter = t.router({
-    createAccountForTesting: publicProcedure
-        .input(loginRequestSchema)
-        .output(userWithTokenSchema)
-        .mutation(async ({input}) => {
-            const hashedPassword = await bcrypt.hash(input.password, 10);
-            const user = await $prisma.user.create({
-                data: {
-                    username: input.username,
-                    passwordHash: hashedPassword,
-                },
-            });
-            return userWithTokenSchema.parse({
-                ...user,
-                token: await getOrCreateUserToken(user.id),
-            });
-                
-        }),
-
     login: publicProcedure
         .input(loginRequestSchema)
         .output(userWithTokenSchema)
