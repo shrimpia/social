@@ -3,22 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://koruri.chillout.chat/koruri.css" />
     <link rel="icon" href="https://media.shrimpia.network/mk-shrimpia/files/403404af-d86e-43ec-a219-b640ae75f62d.png">
+    <link rel="stylesheet" href="https://koruri.chillout.chat/koruri.css" />
+    <% for( const src of styles ) { %>
+        <link rel="stylesheet" href="<%= src %>" />
+    <% } %>
+
+    <% for( const src of preloadedModules ) { %>
+        <link rel="modulepreload" href="<%= src %>" />
+    <% } %>
     <title><%= title %></title>
 </head>
 <body>
     <div id="app"></div>
     <% if (process.env.NODE_ENV !== 'production') { %>
-        <script type="module" src="<%= url %>/@vite/client"></script>
+        <script type="module" src="http://localhost:5173/@vite/client"></script>
         <script type="module">
-            import RefreshRuntime from '<%= url %>/@react-refresh'
+            import RefreshRuntime from 'http://localhost:5173/@react-refresh'
             RefreshRuntime.injectIntoGlobalHook(window)
             window.$RefreshReg$ = () => {}
             window.$RefreshSig$ = () => (type) => type
             window.__vite_plugin_react_preamble_installed__ = true
         </script>
-        <script type="module" src="<%= url %>/src/client/index.tsx"></script>
+        <script type="module" src="http://localhost:5173/src/client/index.tsx"></script>
+    <% } else { %>
+        <% for( const src of modules ) { %>
+            <script type="module" src="<%= src %>"></script>
+        <% } %>
     <% } %>
 </body>
 </html>

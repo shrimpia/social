@@ -11,6 +11,9 @@ importers:
       '@fastify/react':
         specifier: ^0.6.0
         version: 0.6.0(@types/node@22.5.1)(@types/react@18.3.5)(sass@1.77.8)
+      '@fastify/static':
+        specifier: ^7.0.4
+        version: 7.0.4
       '@fastify/view':
         specifier: ^9.1.0
         version: 9.1.0
@@ -35,12 +38,6 @@ importers:
       '@trpc/server':
         specifier: 11.0.0-rc.502
         version: 11.0.0-rc.502
-      '@types/bcryptjs':
-        specifier: ^2.4.6
-        version: 2.4.6
-      '@types/react-dom':
-        specifier: ^18.3.0
-        version: 18.3.0
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -99,6 +96,9 @@ importers:
       '@biomejs/biome':
         specifier: ^1.8.3
         version: 1.8.3
+      '@types/bcryptjs':
+        specifier: ^2.4.6
+        version: 2.4.6
       '@types/ejs':
         specifier: ^3.1.5
         version: 3.1.5
@@ -108,6 +108,9 @@ importers:
       '@types/react':
         specifier: ^18.3.5
         version: 18.3.5
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.0
       '@vitejs/plugin-react':
         specifier: ^4.2.0
         version: 4.3.1(vite@5.4.2(@types/node@22.5.1)(sass@1.77.8))
@@ -592,6 +595,9 @@ packages:
 
   '@fastify/static@6.12.0':
     resolution: {integrity: sha512-KK1B84E6QD/FcQWxDI2aiUCwHxMJBI1KeCUzm1BwYpPY1b742+jeKruGHP2uOluuM6OkBPI8CIANrXcCRtC2oQ==}
+
+  '@fastify/static@7.0.4':
+    resolution: {integrity: sha512-p2uKtaf8BMOZWLs6wu+Ihg7bWNBdjNgCwDza4MJtTqg+5ovKmcbgbR9Xs5/smZ1YISfzKOCNYmZV8LaCj+eJ1Q==}
 
   '@fastify/view@9.1.0':
     resolution: {integrity: sha512-jRTGDljs/uB2p8bf6c1x4stGjP7H84VQkhbtDgCx55Mxf9Fplud5UZIHubvL4BTTX8jNYEzP1FpNAOBi7vibxg==}
@@ -2743,6 +2749,15 @@ snapshots:
       fastify-plugin: 4.5.1
       glob: 8.1.0
       p-limit: 3.1.0
+
+  '@fastify/static@7.0.4':
+    dependencies:
+      '@fastify/accept-negotiator': 1.1.0
+      '@fastify/send': 2.1.0
+      content-disposition: 0.5.4
+      fastify-plugin: 4.5.1
+      fastq: 1.17.1
+      glob: 10.4.5
 
   '@fastify/view@9.1.0':
     dependencies:
