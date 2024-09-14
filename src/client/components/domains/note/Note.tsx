@@ -30,7 +30,7 @@ export const Note: React.FC<NoteProp> = (p) => {
     const renote = () => {
         if (!confirm('本当にリノートしますか？')) return;
         trpc.renote.mutate({
-            noteId: p.note.id,
+            noteId: appearNote.id,
         });
     }
 
