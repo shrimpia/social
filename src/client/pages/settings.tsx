@@ -6,7 +6,7 @@ import type { User } from "@/api/models/user";
 import { useSnapshot } from "valtio";
 import { Input } from "../components/ui/Input";
 import { trpc } from "../api";
-import { resetTimeline, timelineState } from "../states/timeline";
+import { resetTimeline } from "../states/timeline";
 
 type Draft = Omit<User, "username" | "id">;
 
@@ -21,10 +21,12 @@ export default (() => {
         trpc.updateProfile.mutate(draftUser).then((u) => {
             sessionState.userCache = u;
             resetTimeline();
+            alert("プロフィールを更新しました！");
         });
     };
 
     const logout = () => {
+        if (!confirm("このアカウントからログアウトし、トップページに戻ります。\nよろしいですか？")) return;
         sessionState.token = null;
         location.href = "/";
     };

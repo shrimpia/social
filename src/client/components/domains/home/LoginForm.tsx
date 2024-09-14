@@ -20,6 +20,7 @@ export const LoginForm: React.FC = () => {
                 password,
             });
             sessionState.token = user.token;
+            document.documentElement.scroll(0, 0);
         } catch (e) {
             if (e instanceof Error) {
                 alert(e.message);
@@ -28,7 +29,7 @@ export const LoginForm: React.FC = () => {
         } finally {
             setSubmitting(false);
         }
-    }, [username, password, trpc.login.mutate]);
+    }, [username, password]);
 
     const disabled = !username || !password || isSubmitting;
 
@@ -36,7 +37,8 @@ export const LoginForm: React.FC = () => {
         <div className={commonStyles.container}>
             <div className="_card">
                 <p className={styles.description}>
-                    シュリンピア帝国アカウントの認証情報を入力してください。
+                    シュリンピア帝国のユーザー名・パスワードを入力して、ログインしてください。<br/>
+                    9/14 14:00時点のパスワードが反映されているので、パスワードを変更した方は以前のパスワードも試してみてください。
                 </p>
                 <Form>
                     <FormItem label="ユーザー名">

@@ -14,7 +14,6 @@
     right: 0;
     display: flex;
     align-items: center;
-    gap: 8px;
     height: var(--topbar-height);
     padding: 0 16px;
     margin-bottom: 32px;
@@ -33,17 +32,7 @@
 }
 
 .topLink {
-    background: transparent;
-    padding: 8px 16px;
-    border-radius: var(--ui-radius);
-    color: var(--body-text);
-    text-decoration: none;
-
-    &:hover {
-        background-color: var(--ui-flat-hover-bg);
-    }
-
-    &:active {
-        background-color: var(--ui-flat-active-bg);
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

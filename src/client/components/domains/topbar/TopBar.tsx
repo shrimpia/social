@@ -12,13 +12,19 @@ export const TopBar: React.FC = () => {
         uiState.sidebar.isOpen = true;
     };
 
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    };
+
     return (
         <header className={styles.topBar}>
             <Button variant="flat" onClick={openSidebar}>
                 <i className="ti ti-menu-2" />
             </Button>
-            <img src={shrimpiaLogo} className={styles.logo} alt="" />
-            {TITLE}
+            <Button variant="flat" onClick={scrollToTop} className={styles.topLink}>
+                <img src={shrimpiaLogo} className={styles.logo} alt="" />
+                {TITLE}
+            </Button>
         </header>
     );
 };
