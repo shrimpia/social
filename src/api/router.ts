@@ -59,8 +59,13 @@ export const appRouter = t.router({
         .input(loginRequestSchema)
         .output(userWithTokenSchema)
         .mutation(async ({input}) => {
-            const user = await $prisma.user.findUnique({
-                where: { username: input.username },
+            const user = await $prisma.user.findFirst({
+                where: {
+                    username: {
+                        equals: input.username,
+                        mode: "insensitive",
+                    }
+                },
             });
                 
             if (!user || !await bcrypt.compare(input.password, user.passwordHash)) {
