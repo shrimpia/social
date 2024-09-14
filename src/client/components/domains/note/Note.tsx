@@ -47,6 +47,14 @@ export const Note: React.FC<NoteProp> = (p) => {
         });
     }
 
+    const steal = () => {
+        if (!appearNote.text) return;
+        if (!confirm('このノートをパクリますか？')) return;
+        trpc.createNote.mutate({
+            text: appearNote.text,
+        });
+    }
+
     return (
         <div className={styles.card}>
             {p.note.renote && (
@@ -90,6 +98,9 @@ export const Note: React.FC<NoteProp> = (p) => {
                                     <i className="ti ti-repeat" />
                                 </Button>
                             )}
+                            <Button variant="flat" onClick={steal}>
+                                <i className="ti ti-swipe" />
+                            </Button>
                             {canDelete ? (
                                 <Button variant="flat" onClick={deleteNote}>
                                     <i className="ti ti-trash _text-primary" />
