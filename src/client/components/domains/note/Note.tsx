@@ -24,8 +24,8 @@ export const Note: React.FC<NoteProp> = (p) => {
     const avatarBgColor = useMemo(() => `color-mix(in srgb, ${avatarFgColor}, 80% white)` , [avatarFgColor]);
 
     const canDelete = useMemo(() => {
-        return appearNote.author.id === session.userCache?.id;
-    }, [appearNote.author.id, session.userCache?.id]);
+        return appearNote.author.id === session.userCache?.id || session.userCache?.role === 'Admin';
+    }, [appearNote.author.id, session.userCache]);
 
     const renote = () => {
         if (!confirm('本当にリノートしますか？')) return;
