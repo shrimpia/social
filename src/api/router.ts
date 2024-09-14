@@ -15,6 +15,11 @@ import { observable } from "@trpc/server/observable";
 import { localTimelineEventBus } from "./streaming/bus";
 import { updateProfileRequestSchema } from "./request-schemas/update-profile";
 import { renoteRequestSchema } from "./request-schemas/renote";
+import { Role } from "@prisma/client";
+import { suspendUserRequestSchema } from "./request-schemas/suspend-user";
+import type { Event } from "./streaming/events";
+import { fetchUsersRequestSchema } from "./request-schemas/fetch-users";
+import { fetchUserRequestSchema } from "./request-schemas/fetch-user";
 
 export const t = initTRPC.context<typeof createApiContext>().create({
     transformer: superjson
@@ -50,7 +55,12 @@ const userProcedure = publicProcedure
  */
 const adminProcedure = userProcedure
     .use(async (opts) => {
-        // TODO: ユーザーにロールを実装したら取り掛かる
+        if (opts.ctx.user.role !== Role.Admin) {
+            throw new TRPCError({
+                code: "FORBIDDEN",
+                message: "This API requires admin permission",
+            });
+        }
         return opts.next(opts);
     });
 
@@ -92,6 +102,12 @@ export const appRouter = t.router({
         .input(updateProfileRequestSchema)
         .output(userSchema)
         .mutation(async ({input, ctx}) => {
+            if (ctx.user.isSuspended) {
+                throw new TRPCError({
+                    code: "FORBIDDEN",
+                    message: "You are suspended",
+                });
+            }
             const user = await $prisma.user.update({
                 where: { id: ctx.user.id },
                 data: {
@@ -124,6 +140,12 @@ export const appRouter = t.router({
         .input(createNoteRequestSchema)
         .output(noteSchema)
         .mutation(async ({input, ctx}) => {
+            if (ctx.user.isSuspended) {
+                throw new TRPCError({
+                    code: "FORBIDDEN",
+                    message: "You are suspended",
+                });
+            }
             const userId = ctx.user.id;
             const note = await $prisma.note.create({
                 data: {
@@ -147,6 +169,12 @@ export const appRouter = t.router({
         .input(renoteRequestSchema)
         .output(noteSchema)
         .mutation(async ({input, ctx}) => {
+            if (ctx.user.isSuspended) {
+                throw new TRPCError({
+                    code: "FORBIDDEN",
+                    message: "You are suspended",
+                });
+            }
             const userId = ctx.user.id;
             const renote = await $prisma.note.findUnique({ where : { id: input.noteId }, select: { id: true } });
             if (!renote) {
@@ -176,6 +204,12 @@ export const appRouter = t.router({
     deleteNote: userProcedure
         .input(deleteNoteRequestSchema)
         .mutation(async ({input, ctx}) => {
+            if (ctx.user.isSuspended) {
+                throw new TRPCError({
+                    code: "FORBIDDEN",
+                    message: "You are suspended",
+                });
+            }
             const note = await $prisma.note.findUnique({
                 where: { id: input.noteId },
             });
@@ -185,7 +219,7 @@ export const appRouter = t.router({
                     message: "Note not found",
                 });
             }
-            if (note.authorId !== ctx.user.id) {
+            if (note.authorId !== ctx.user.id && ctx.user.role !== Role.Admin) {
                 throw new TRPCError({
                     code: "FORBIDDEN",
                     message: "You are not the author of this note",
@@ -200,12 +234,67 @@ export const appRouter = t.router({
             });
         }),
 
-        subscribeLocalTimeline: publicProcedure
-            .subscription(() => {
-                return observable<Event>(observer => {
-                    return localTimelineEventBus.subscribe(data => observer.next(data));
+    subscribeLocalTimeline: publicProcedure
+        .subscription(() => {
+            return observable<Event>(observer => {
+                return localTimelineEventBus.subscribe(data => observer.next(data));
+            });
+        }),
+    
+    fetchUser: publicProcedure
+        .input(fetchUserRequestSchema)
+        .output(userSchema)
+        .query(async ({input}) => {
+            const user = await $prisma.user.findUnique({
+                where: { id: input.userId },
+            });
+            if (!user) {
+                throw new TRPCError({
+                    code: "NOT_FOUND",
+                    message: "User not found",
                 });
-            }),
+            }
+            return user;
+        }),
+    
+    suspendUser: adminProcedure
+        .input(suspendUserRequestSchema)
+        .mutation(async ({input}) => {
+            await $prisma.user.update({
+                where: { id: input.userId },
+                data: {
+                    isSuspended: true,
+                },
+            });
+        }),
+    
+    unsuspendUser: adminProcedure
+        .input(suspendUserRequestSchema)
+        .mutation(async ({input}) => {
+            await $prisma.user.update({
+                where: { id: input.userId },
+                data: {
+                    isSuspended: false,
+                },
+            });
+        }),
+    
+    fetchUsers: adminProcedure
+        .input(fetchUsersRequestSchema)
+        .output(userSchema.array())
+        .query(async ({input}) => {
+            const dbUsers = await $prisma.user.findMany({
+                cursor: input.cursor ? { id: input.cursor } : undefined,
+                skip: input.cursor ? 1 : 0,
+                take: input.limit,
+                where: input.filter ? {
+                    username: {
+                        contains: input.filter,
+                    }
+                } : undefined,
+            });
+            return dbUsers;
+        }),
 });
 
 export type AppRouter = typeof appRouter;

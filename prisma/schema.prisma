@@ -22,6 +22,7 @@ model User {
   passwordHash String @map("password_hash")
   personalColor String? @map("personal_color")
   role Role @default(User)
+  isSuspended Boolean @default(false) @map("is_suspended")
 
   notes Note[]
   tokens Token[]
