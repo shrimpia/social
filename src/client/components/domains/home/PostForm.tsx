@@ -37,6 +37,14 @@ export const PostForm: React.FC = () => {
         }
     }, [createNote, text]);
 
+    const pressKeyOnTextarea = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        // Ctrl + Enterで投稿
+        if (e.key === 'Enter' && e.ctrlKey) {
+            e.preventDefault();
+            post();
+        }
+    };
+
     return (
         <div className={`_card _vstack ${commonStyles.container}`}>
             <div className={styles.topCommands}>
@@ -46,7 +54,7 @@ export const PostForm: React.FC = () => {
                 <Button variant="flat" onClick={toggleLocalOnly}><i className="ti ti-rocket-off _text-primary" /></Button>
                 <Button variant="primary" disabled={!canNote} onClick={post}>ノート <i className="ti ti-send" /></Button>
             </div>
-            <textarea className={styles.textarea} placeholder="いまどうしてる？" value={text} onChange={e => setText(e.target.value)} />
+            <textarea className={styles.textarea} placeholder="いまどうしてる？" value={text} onChange={e => setText(e.target.value)} onKeyDown={pressKeyOnTextarea} />
             {remain < 50 && <div className={styles.remain}>残り{remain}文字</div>}
         </div>
     );
