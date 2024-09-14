@@ -16,6 +16,19 @@
         border-bottom-color: var(--ui-border-color);
         translate: 0 1px;
     }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        &:hover {
+            background: var(--ui-bg);
+        }
+        &:active {
+            background: var(--ui-bg);
+            border-bottom-color: var(--ui-shadow-color);
+            translate: 0 0;
+        }
+    }
 }
 
 .btnPrimary {
@@ -29,6 +42,15 @@
 
     &:active {
         background: var(--primary-700);
+    }
+
+    &:disabled {
+        &:hover {
+            background: var(--primary);
+        }
+        &:active {
+            background: var(--primary);
+        }
     }
 }
 
@@ -45,5 +67,14 @@
 
     &:active {
         background: var(--ui-flat-active-bg);
+    }
+
+    &:disabled {
+        &:hover {
+            background: transparent;
+        }
+        &:active {
+            background: transparent;
+        }
     }
 }
