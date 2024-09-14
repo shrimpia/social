@@ -2,11 +2,11 @@
 
 .container {
     position: sticky;
-    top: 48px;
+    top: var(--top-margin);
     background-color: var(--topbar-bg);
     backdrop-filter: blur(8px);
 
     @include breakpoint.mobile {
-        top: calc(48px + var(--topbar-height));
+        top: calc(var(--top-margin) + var(--topbar-height));
     }
 }

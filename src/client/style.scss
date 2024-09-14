@@ -1,5 +1,6 @@
 @use 'sass:math';
 @use 'sass:color';
+@use './breakpoint';
 
 @import './reset.css';
 @import './util.scss';
@@ -75,7 +76,19 @@ $darkenLevel: (
     --topbar-bg: #f6e9e799;
     --topbar-height: 50px;
 
+    --top-margin: 48px;
+
+    @include breakpoint.mobile {
+        --top-margin: 24px;
+    }
+
     background-color: var(--body-bg);
     color: var(--body-text);
     font-family: "Koruri", sans-serif;
+
+    font-size: 16px;
+
+    @include breakpoint.mobile {
+        font-size: 14px;
+    }
 }

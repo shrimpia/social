@@ -2,7 +2,7 @@
 
 .inner {
     max-width: 1000px;
-    padding: 48px 32px;
+    padding: var(--top-margin) 32px;
 }
 
 .footer {
@@ -17,7 +17,7 @@
     }
 
     .inner {
-        padding: 48px 12px;
+        padding: var(--top-margin) 12px;
     }
 }
 
