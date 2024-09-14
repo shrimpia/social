@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 
 import styles from './index.module.scss';
 import { useSnapshot } from "valtio";

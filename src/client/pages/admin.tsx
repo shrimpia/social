@@ -1,10 +1,9 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React from "react";
 import { useSnapshot } from "valtio";
-import { adminState, fetchUsers, initUsers } from "../states/admin";
-import { Form, FormItem } from "../components/ui/Form";
+import { adminState, initUsers } from "../states/admin";
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
-import { User } from "@/api/models/user";
+import type { User } from "@/api/models/user";
 import { trpc } from "../api";
 
 export default (() => {
